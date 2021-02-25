@@ -41,6 +41,6 @@ services:
    - backend-net
    - frontend-net
 
-netowrks:
+networks:
  backend-net:
  frontend-net:
