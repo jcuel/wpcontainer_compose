@@ -1,0 +1,46 @@
+version: '3.9'
+services:
+ db:
+  image: mariadb
+  volumes:
+   - type: bind
+     source: /home/instructor/projects/wpcontainer_compose/db_data
+     target: /var/lib/mysql
+  restart: always
+  environment:
+   MYSQL_ROOT_PASSWORD: root-password
+   MYSQL_DATABASE: wpdb
+   MYSQL_USER: wpuser
+   MYSQL_PASSWORD: password
+  networks:
+   - backend-net
+ backend:
+  image: adminer
+  restart: always
+  networks:
+   - backend-net
+  ports:
+   - '8080:8080'
+ frontend:
+  depends_on:
+  - db
+  image: wordpress
+  ports:
+   - '8081:80'
+  restart: always
+  environment:
+   WORDPRESS_DB_HOST: 'db:3386'
+   WORDPRESS_DB_USER: wpuser
+   WORDPRESS_DB_PASSWORD: password
+   WORDPRESS_DB_NAME: wpdb
+  volumes:
+   - type: bind
+     source: /home/instructor/projects/wpcontainer_compose/www
+     target: /var/www/html
+  networks:
+   - backend-net
+   - frontend-net
+
+netowrks:
+ backend-net:
+ frontend-net:
