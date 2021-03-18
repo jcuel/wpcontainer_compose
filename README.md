@@ -1,13 +1,19 @@
 # wpcontainer_compose
-Wordpress container with compose
+## Wordpress container with compose
 
-#this time we will make the same task as in wordpress_containers, but awesomely fast using Docker-Compose!.
-#here is some refferenceo of the commands to fillup the yaml.
+### this time we will make the same task as in wordpress_containers, but awesomely fast using Docker-Compose!.
+### here is some refferenceo of the commands to fillup the yaml.
 
-# Refference: https://devhints.io/docker-compose
+_Refference:_ https://devhints.io/docker-compose
 
-
+## Create yaml file
+```
 root@containerhost:/home/instructor/projects/wpcontainer_compose# nano docker-compose.yml
+
+```
+## Launch docker compose
+
+```
 root@containerhost:/home/instructor/projects/wpcontainer_compose# docker-compose up -d
 Building with native build. Learn about native build in Compose here: https://docs.docker.com/go/compose-native-build/
 Creating network "wpcontainer_compose_backend-net" with the default driver
@@ -74,11 +80,20 @@ Status: Downloaded newer image for wordpress:latest
 Creating wpcontainer_compose_db_1      ... done
 Creating wpcontainer_compose_backend_1 ... done
 Creating wpcontainer_compose_frontend_1 ... done
+
+```
+## Validate running instances with docker ps
+```
 root@containerhost:/home/instructor/projects/wpcontainer_compose# docker ps
 CONTAINER ID   IMAGE       COMMAND                  CREATED              STATUS              PORTS                    NAMES
 e09ce43ecdc8   wordpress   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:8081->80/tcp     wpcontainer_compose_frontend_1
 3373dfb34196   adminer     "entrypoint.sh docke…"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp   wpcontainer_compose_backend_1
 24900e7f9e14   mariadb     "docker-entrypoint.s…"   About a minute ago   Up About a minute   3306/tcp                 wpcontainer_compose_db_1
+
+```
+## Now let's use docker-compose ps to understand what they really are.
+
+```
 root@containerhost:/home/instructor/projects/wpcontainer_compose# docker-compose ps
              Name                           Command               State           Ports
 ------------------------------------------------------------------------------------------------
@@ -86,3 +101,5 @@ wpcontainer_compose_backend_1    entrypoint.sh docker-php-e ...   Up      0.0.0.
 wpcontainer_compose_db_1         docker-entrypoint.sh mysqld      Up      3306/tcp
 wpcontainer_compose_frontend_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8081->80/tcp
 root@containerhost:/home/instructor/projects/wpcontainer_compose#
+
+```
